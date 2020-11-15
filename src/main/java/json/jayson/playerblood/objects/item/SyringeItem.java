@@ -29,6 +29,9 @@ import java.awt.*;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+//Geportet von 1.15. --> Sehr Alt
+@Deprecated
 public class SyringeItem extends Item {
 
     public SyringeItem(Properties p_i48487_1_) {

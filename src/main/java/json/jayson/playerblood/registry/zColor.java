@@ -11,14 +11,14 @@ public class zColor {
     @SubscribeEvent
     public static void registerItemColourHandlers(ColorHandlerEvent.Item event) {
         ItemColors itemColors = event.getItemColors();
-        itemColors.register((p_getColor_1_, p_getColor_2_) -> {
-            if(p_getColor_1_.hasTag()) {
-                if(p_getColor_2_ == 0) {
-                    return p_getColor_1_.getTag().getInt("Color");
+        itemColors.register((itemStack, index) -> {
+            if(itemStack.hasTag()) {
+                if(index == 0) {
+                    return itemStack.getTag().getInt("Color");
                 }
-                if(p_getColor_2_ == 1) {
-                    if (p_getColor_1_.getTag().getInt("Amount") > 0) {
-                        return p_getColor_1_.getTag().getInt("BloodColor");
+                if(index == 1) {
+                    if (itemStack.getTag().getInt("Amount") > 0) {
+                        return itemStack.getTag().getInt("BloodColor");
                     }
                 }
             }

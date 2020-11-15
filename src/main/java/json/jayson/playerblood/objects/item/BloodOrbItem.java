@@ -17,6 +17,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
+
+//Geportet von 1.15. --> Sehr Alt
+@Deprecated
 public class BloodOrbItem extends Item {
 
     public BloodOrbItem(Properties properties) {
