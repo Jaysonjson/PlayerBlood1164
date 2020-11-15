@@ -1,0 +1,16 @@
+{
+  "item.playerblood.syringe": "Syringe",
+  "item.playerblood.blood_orb": "Blood Orb",
+  "blood_increase": "Blood Increased by %sbu",
+  "max_blood_increase": "Max Blood Increased by %sbu",
+  "blood_overflow": "Blood Overflew by %sbu",
+  "syringe_wrong_owner": "Could not pickup Blood! Wrong Owner!",
+  "block.playerblood.blood": "Blood",
+  "blood_decrease": "Blood Decreased by %sbu",
+  "container.blood_modifier": "Blood Modifier",
+  "command_maxBlood_reset": "Max Blood resetted for Player: %s",
+  "command_blood_reset": "Blood Resetted for Player: %s",
+  "block.playerblood.blood_modifier": "Blood Modifier (WIP)",
+  "block.playerblood.blood_analyzer": "Blood Analyzer (Not yet created)",
+  "item.playerblood.blood_reset": "Blood Resetter"
+}

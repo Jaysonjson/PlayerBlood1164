@@ -1,0 +1,37 @@
+package json.jayson.playerblood;
+
+import json.jayson.playerblood.capability.interfaces.IPlayerBlood;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
+
+import java.util.List;
+
+public class zUtility {
+
+    public static void sendMessage(PlayerEntity player, TranslationTextComponent translation, boolean hotBar) {
+        if (!player.world.isRemote) {
+            player.sendStatusMessage(translation, hotBar);
+        }
+    }
+
+    public static void sendMessageToAll(TranslationTextComponent translation) {
+        List<ServerPlayerEntity> players = ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers();
+        players.forEach(playerMP -> sendMessage(playerMP, translation, false));
+    }
+
+    public static float convertToBU(float mbu) {
+        return mbu * 0.001f;
+    }
+
+    public static float convertToMBU(float bu) {
+        return bu * 1000;
+    }
+
+    public static void setBloodHearts(PlayerEntity player, IPlayerBlood playerBlood) {
+        player.setHealth(player.getHealth() + (playerBlood.getBlood()) * 0.01f);
+        player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(19 + ((playerBlood.getBlood() * 0.01f) * 2));
+    }
+}

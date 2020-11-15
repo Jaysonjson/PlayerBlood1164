@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "playerblood:item/syringe",
+        "layer1": "playerblood:item/syringe_overlay"
+    }
+}

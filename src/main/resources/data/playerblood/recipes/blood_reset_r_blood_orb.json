@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "playerblood:blood_orb"
+    }
+  },
+  "result": {
+    "item": "playerblood:blood_reset",
+    "count": 1
+  }
+}

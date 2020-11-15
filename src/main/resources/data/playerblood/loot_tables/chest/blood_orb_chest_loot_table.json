@@ -1,0 +1,19 @@
+{
+  "pools":[
+    {
+      "name":"playerblood:blood-orb-pool",
+      "rolls": 1,
+      "entries":[
+        {
+          "type":"item",
+          "name": "playerblood:blood_orb",
+          "weight":60
+        },
+        {
+          "type": "empty",
+          "weight":70
+        }
+      ]
+    }
+  ]
+}
