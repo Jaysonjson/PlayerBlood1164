@@ -5,6 +5,7 @@ import json.jayson.playerblood.bMod;
 import json.jayson.playerblood.capability.data.PlayerBlood;
 import json.jayson.playerblood.event.DamageTakeEvent;
 import json.jayson.playerblood.event.EnemyHitEvent;
+import json.jayson.playerblood.event.EntitynteractEvent;
 import json.jayson.playerblood.event.EnemyKillEvent;
 import json.jayson.playerblood.zUtility;
 import net.minecraft.client.Minecraft;
@@ -19,6 +20,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class zEvent {
@@ -55,6 +57,11 @@ public class zEvent {
             playerBlood.syncRemote(player);
             zUtility.setBloodHearts(player, playerBlood);
         });
+    }
+
+    @SubscribeEvent
+    public static void PlayerInteractEvent(PlayerInteractEvent event) {
+        EntitynteractEvent.onEvent(event);
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -19,7 +19,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 
 @Mod("playerblood")
-@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
+//@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class bMod {
     public static final String MOD_ID = "playerblood";
     public static final String BLOOD_MODIFIER_DIR = FMLPaths.MODSDIR.get().toString() + "/1.16.3/playerblood/";

@@ -1,5 +1,6 @@
 package json.jayson.playerblood.registry;
 
+import json.jayson.playerblood.object.zItemNBT;
 import json.jayson.playerblood.registry.object.zItem;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,11 +16,11 @@ public class zColor {
         itemColors.register((itemStack, index) -> {
             if(itemStack.hasTag()) {
                 if(index == 0) {
-                    return itemStack.getTag().getInt("Color");
+                    return itemStack.getTag().getInt(zItemNBT.COLOR);
                 }
                 if(index == 1) {
-                    if (itemStack.getTag().getInt("Amount") > 0) {
-                        return itemStack.getTag().getInt("BloodColor");
+                    if (itemStack.getTag().getInt(zItemNBT.BLOOD_AMOUNT) > 0) {
+                        return itemStack.getTag().getInt(zItemNBT.BLOOD_COLOR);
                     }
                 }
             }

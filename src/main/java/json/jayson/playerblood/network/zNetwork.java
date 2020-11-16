@@ -1,6 +1,7 @@
 package json.jayson.playerblood.network;
 
 import json.jayson.playerblood.bMod;
+import json.jayson.playerblood.network.packet.EntityBloodPacket;
 import json.jayson.playerblood.network.packet.PlayerBloodPacket;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
@@ -24,7 +25,7 @@ public class zNetwork {
 
     public static void init() {
         int id = 0;
-        //INSTANCE.registerMessage(id++, EntityBloodPacket.class, EntityBloodPacket::encode, EntityBloodPacket::decode, EntityBloodPacket::handle);
+        INSTANCE.registerMessage(id++, EntityBloodPacket.class, EntityBloodPacket::encode, EntityBloodPacket::decode, EntityBloodPacket::handle);
         INSTANCE.registerMessage(id++, PlayerBloodPacket.class, PlayerBloodPacket::encode, PlayerBloodPacket::decode, PlayerBloodPacket::handle);
     }
 

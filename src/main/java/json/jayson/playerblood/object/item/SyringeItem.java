@@ -46,14 +46,15 @@ public class SyringeItem extends Item {
         } else {
             nbt = new CompoundNBT();
             blood.setNBT(nbt, blood);
-            nbt.putInt("Color", new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)).getRGB());
-            nbt.putInt("BloodColor", new Color(ThreadLocalRandom.current().nextInt(155, 254 + 1), 66, 66).getRGB());
+            nbt.putInt(zItemNBT.COLOR, new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)).getRGB());
+            nbt.putInt(zItemNBT.BLOOD_COLOR, new Color(ThreadLocalRandom.current().nextInt(155, 254 + 1), 66, 66).getRGB());
+            nbt.putString(zItemNBT.ENTITY, "Unknown");
             stack.setTag(nbt);
         }
         if(nbt != null) {
             stack.setTag(nbt);
-            if (nbt.getString("Entity") != "Unknown") {
-                if (!entityExists(nbt.getString("Entity"))) {
+            if (!nbt.getString(zItemNBT.ENTITY).equalsIgnoreCase("Unknown")) {
+                if (!entityExists(nbt.getString(zItemNBT.ENTITY))) {
                     resetEntity(nbt);
                 }
             }
@@ -71,8 +72,7 @@ public class SyringeItem extends Item {
         
         float amount = nbt.getFloat(zItemNBT.BLOOD_AMOUNT);
         String entity = nbt.getString(zItemNBT.ENTITY);
-        
-        if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {          
+        if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
         	
         	BlockPos blockpos = new BlockPos(raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
             RayTraceResult rayTrace = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);            
@@ -86,7 +86,8 @@ public class SyringeItem extends Item {
                     entity = tileEntity.owner;
                     world.setBlockState(blockposIn, Blocks.AIR.getDefaultState());
                     nbt.putString(zItemNBT.ENTITY, entity);
-                    nbt.putFloat(zItemNBT.BLOOD_AMOUNT, amount);  
+                    nbt.putFloat(zItemNBT.BLOOD_AMOUNT, amount);
+                    item.setTag(nbt);
                 } else {
                     zUtility.sendMessage(player, new TranslationTextComponent("syringe_wrong_owner"), true);
                 }    

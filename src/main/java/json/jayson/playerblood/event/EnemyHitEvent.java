@@ -1,7 +1,9 @@
 package json.jayson.playerblood.event;
 
 import json.jayson.playerblood.capability.data.PlayerBlood;
+import json.jayson.playerblood.object.fluid.blood.FluidBloodBlockTileEntity;
 import json.jayson.playerblood.registry.blood.zBloodModifier;
+import json.jayson.playerblood.registry.object.zFluid;
 import json.jayson.playerblood.zUtility;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +12,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Random;
 
@@ -39,13 +42,13 @@ public class EnemyHitEvent {
             }
             zUtility.setBloodHearts(player, playerBlood);
             playerBlood.syncRemote(player);
-            /*if (playerBlood.isOverflow(bloodAdjustment)) {
+            if (playerBlood.isOverflow(bloodAdjustment)) {
                 player.getEntityWorld().setBlockState(target.getPosition(), zFluid.BLOOD.get().getDefaultState().getBlockState());
                 FluidBloodBlockTileEntity tileEntity = (FluidBloodBlockTileEntity) player.getEntityWorld().getTileEntity(target.getPosition());
                 tileEntity.amount = playerBlood.getOverflow(bloodAdjustment);
-                tileEntity.owner = ForgeRegistries.ENTITIES.getKey(target.getType()).getPath();
+                tileEntity.owner = ForgeRegistries.ENTITIES.getKey(target.getType()).toString();
             }
-            */
+            
             for (int i = 0; i < random.nextInt(15); i++) {
                 player.getEntityWorld().addParticle(ParticleTypes.FALLING_LAVA, target.getPosX(), target.getPosY(), target.getPosZ(), random.nextDouble() * 0.025, random.nextDouble() * 0.025, random.nextDouble() * 0.025);
             }
