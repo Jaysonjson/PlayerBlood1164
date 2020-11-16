@@ -1,7 +1,7 @@
 package json.jayson.playerblood.capability.data;
 
+import json.jayson.playerblood.capability.zCapability;
 import json.jayson.playerblood.capability.interfaces.IEntityBlood;
-import json.jayson.playerblood.registry.zCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.LazyOptional;

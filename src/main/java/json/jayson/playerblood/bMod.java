@@ -1,5 +1,6 @@
 package json.jayson.playerblood;
 
+import json.jayson.playerblood.capability.zCapability;
 import json.jayson.playerblood.network.zNetwork;
 import json.jayson.playerblood.registry.*;
 import json.jayson.playerblood.registry.blood.zBloodModifier;
@@ -18,8 +19,8 @@ import net.minecraftforge.fml.loading.FMLPaths;
 @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class bMod {
     public static final String MOD_ID = "playerblood";
-    public static final String BLOOD_MODIFIER_JSON = FMLPaths.MODSDIR.get().toString() + "/1.16.3/playerblood/bloodmodify.json";
-
+    public static final String BLOOD_MODIFIER_DIR = FMLPaths.MODSDIR.get().toString() + "/1.16.3/playerblood/";
+    public static final String BLOOD_MODIFIER_JSON = BLOOD_MODIFIER_DIR + "bloodmodify.json";
     public bMod() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         zBloodModifier.init();
@@ -35,7 +36,8 @@ public class bMod {
         zFluid.FLUIDS.register(modEventBus);
 
         zItem.ITEMS.register(modEventBus);
-
+        zBlock.BLOCKS.register(modEventBus);
+        
         zTileEntity.TILE_ENTITIES.register(modEventBus);
 
     }

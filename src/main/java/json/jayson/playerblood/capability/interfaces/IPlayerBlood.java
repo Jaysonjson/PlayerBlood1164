@@ -6,7 +6,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IPlayerBlood extends INBTSerializable<CompoundNBT> {
-    float getBlood();
+   
+	float getBlood();
     float getMaxBlood();
 
     void setBlood(float blood);
@@ -27,9 +28,11 @@ public interface IPlayerBlood extends INBTSerializable<CompoundNBT> {
 
     boolean isOverflow(float blood);
     float getOverflow(float blood);
+   
     @Deprecated
     void sync(PlayerEntity player);
     void syncRemote(PlayerEntity player);
     @Deprecated
     void syncServer(PlayerEntity player, MinecraftServer server);
+    
 }

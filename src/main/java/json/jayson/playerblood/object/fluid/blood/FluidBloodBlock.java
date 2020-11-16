@@ -1,4 +1,4 @@
-package json.jayson.playerblood.objects.fluid.blood;
+package json.jayson.playerblood.object.fluid.blood;
 
 import json.jayson.playerblood.registry.zTileEntity;
 import net.minecraft.block.BlockState;

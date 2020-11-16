@@ -1,10 +1,10 @@
-package json.jayson.playerblood.objects.item;
+package json.jayson.playerblood.object.item;
 
 import json.jayson.playerblood.capability.data.PlayerBlood;
-import json.jayson.playerblood.objects.HasBlood;
-import json.jayson.playerblood.objects.IHasBlood;
-import json.jayson.playerblood.objects.fluid.blood.FluidBloodBlock;
-import json.jayson.playerblood.objects.fluid.blood.FluidBloodBlockTileEntity;
+import json.jayson.playerblood.object.blood.HasBlood;
+import json.jayson.playerblood.object.blood.IHasBlood;
+import json.jayson.playerblood.object.fluid.blood.FluidBloodBlock;
+import json.jayson.playerblood.object.fluid.blood.FluidBloodBlockTileEntity;
 import json.jayson.playerblood.zUtility;
 import net.minecraft.block.*;
 import net.minecraft.client.util.ITooltipFlag;

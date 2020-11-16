@@ -1,8 +1,8 @@
 package json.jayson.playerblood.registry;
 
 import json.jayson.playerblood.bMod;
-import json.jayson.playerblood.objects.fluid.blood.FluidBlood;
-import json.jayson.playerblood.objects.fluid.blood.FluidBloodBlock;
+import json.jayson.playerblood.object.fluid.blood.FluidBlood;
+import json.jayson.playerblood.object.fluid.blood.FluidBloodBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.fluid.FlowingFluid;

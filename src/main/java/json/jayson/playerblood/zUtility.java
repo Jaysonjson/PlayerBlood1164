@@ -34,4 +34,13 @@ public class zUtility {
         player.setHealth(player.getHealth() + (playerBlood.getBlood()) * 0.01f);
         player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(19 + ((playerBlood.getBlood() * 0.01f) * 2));
     }
+
+    public static String formatNumber(Object number) {
+        String string = String.format("%.2f", number);
+        if((float)number > 1000) string = String.format("%.2fk", (float)number / 1000.0);
+        if((float)number > 1000000) string = String.format("%.2fM", (float)number / 1000000.0);
+        if((float)number > 1000000000) string = String.format("%.2fG", (float)number / 1000000000.0);
+        return string;
+    }
+    
 }

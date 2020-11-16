@@ -1,4 +1,4 @@
-package json.jayson.playerblood.objects.fluid.blood;
+package json.jayson.playerblood.object.fluid.blood;
 
 import json.jayson.playerblood.registry.zFluid;
 import net.minecraft.block.BlockState;
@@ -99,6 +99,7 @@ public class FluidBlood extends FlowingFluid {
                 .translationKey("block.playerblood.blood")
                 .build(this);
     }
+
     public static class Flowing extends FluidBlood {
 
 
@@ -117,6 +118,18 @@ public class FluidBlood extends FlowingFluid {
         public int getLevel(FluidState state) {
             return state.get(FluidBlood.LEVEL_1_8);
         }
+
+        @Override
+        protected FluidAttributes createAttributes() {
+            return FluidAttributes.builder(new ResourceLocation("minecraft", "block/water_still"), new ResourceLocation("minecraft", "block/water_flow"))
+                    .density(10000)
+                    .viscosity(10000)
+                    .temperature(24)
+                    .color(0xb30b0b)
+                    .luminosity(15)
+                    .translationKey("block.playerblood.blood")
+                    .build(this);
+        }
     }
     public static class Source extends FluidBlood {
 
@@ -128,6 +141,18 @@ public class FluidBlood extends FlowingFluid {
         @Override
         public int getLevel(FluidState state) {
             return 8;
+        }
+
+        @Override
+        protected FluidAttributes createAttributes() {
+            return FluidAttributes.builder(new ResourceLocation("minecraft", "block/water_still"), new ResourceLocation("minecraft", "block/water_flow"))
+                    .density(10000)
+                    .viscosity(10000)
+                    .temperature(24)
+                    .color(0xb30b0b)
+                    .luminosity(15)
+                    .translationKey("block.playerblood.blood")
+                    .build(this);
         }
 
     }

@@ -60,15 +60,15 @@ public class zEvent {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void RenderGameOverlayEvent(RenderGameOverlayEvent.Post event) {
-        /*if (event.isCancelable() || event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE || !PBConfig.HUD.get()) {
+    	if(event.isCancelable() || event.getType() != RenderGameOverlayEvent.ElementType.EXPERIENCE) {
             return;
         }
-         */
+
         Minecraft minecraft = Minecraft.getInstance();
         FontRenderer fRender = minecraft.fontRenderer;
         PlayerEntity player = minecraft.player;
         PlayerBlood.get(player).ifPresent(playerBlood -> {
-            String bloodText = TextFormatting.RED + "Blood: " + String.format("%.02f", playerBlood.getBlood()) + "bu / " + String.format("%.02f", playerBlood.getMaxBlood()) + "bu";
+            String bloodText = TextFormatting.RED + "Blood: " + zUtility.formatNumber(playerBlood.getBlood()) + "bu / " + zUtility.formatNumber(playerBlood.getMaxBlood()) + "bu";
             fRender.drawString(new MatrixStack(), bloodText, 5, 5, 0);
             minecraft.getTextureManager().bindTexture(new ResourceLocation(bMod.MOD_ID,"textures/gui/blood_progress_bar.png"));
             minecraft.ingameGUI.blit(new MatrixStack(), 5,15,0,7, (int) (100 + (bloodText.length() * 1.2)),7);

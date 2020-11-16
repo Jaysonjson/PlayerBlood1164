@@ -1,9 +1,9 @@
 package json.jayson.playerblood.capability.data;
 
+import json.jayson.playerblood.capability.zCapability;
 import json.jayson.playerblood.capability.interfaces.IPlayerBlood;
 import json.jayson.playerblood.network.packet.PlayerBloodPacket;
 import json.jayson.playerblood.network.zNetwork;
-import json.jayson.playerblood.registry.zCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -16,8 +16,10 @@ public class PlayerBlood implements IPlayerBlood {
 
     public float blood = 0.0f;
     public float maxBlood = 100.0f;
+    
     public PlayerBlood() {
     }
+    
     @Override
     public float getBlood() {
         return this.blood;
@@ -59,7 +61,6 @@ public class PlayerBlood implements IPlayerBlood {
     public void decreaseBlood(float decreasement) {
         this.decreaseBlood(decreasement, false);
     }
-
 
     @Override
     public void adjustBlood(float adjustment, boolean checkMax) {
@@ -108,6 +109,7 @@ public class PlayerBlood implements IPlayerBlood {
         }
         return 0;
     }
+    
     @Deprecated
     @Override
     public void sync(PlayerEntity player) {
@@ -123,6 +125,7 @@ public class PlayerBlood implements IPlayerBlood {
             zNetwork.sendPacketToAll(new PlayerBloodPacket(player.getUniqueID(), data.serializeNBT()));
         }
     }
+    
     @Deprecated
     @Override
     public void syncServer(PlayerEntity player, MinecraftServer server) {

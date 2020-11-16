@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import json.jayson.playerblood.bMod;
 import net.minecraft.entity.EntityType;
-import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -39,8 +38,8 @@ public class BloodModifyHandler {
 
     public static void saveAsFile(String json) {
         try {
-            new File(bMod.BLOOD_MODIFIER_JSON).mkdirs();
-            FileOutputStream fileOutputStream = new FileOutputStream(new File(FMLPaths.MODSDIR.get().toString() + "/1.15.2/playerblood/bloodmodify.json"));
+            new File(bMod.BLOOD_MODIFIER_DIR).mkdirs();
+            FileOutputStream fileOutputStream = new FileOutputStream(bMod.BLOOD_MODIFIER_JSON);
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
             outputStreamWriter.append(json);
             outputStreamWriter.close();

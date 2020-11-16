@@ -1,7 +1,7 @@
 package json.jayson.playerblood.registry;
 
 import json.jayson.playerblood.bMod;
-import json.jayson.playerblood.objects.item.*;
+import json.jayson.playerblood.object.item.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

@@ -1,6 +1,6 @@
-package json.jayson.playerblood.objects.fluid.blood;
+package json.jayson.playerblood.object.fluid.blood;
 
-import json.jayson.playerblood.objects.IHasBlood;
+import json.jayson.playerblood.object.blood.IHasBlood;
 import json.jayson.playerblood.registry.zTileEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;

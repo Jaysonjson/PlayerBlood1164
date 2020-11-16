@@ -1,4 +1,4 @@
-package json.jayson.playerblood.objects.item;
+package json.jayson.playerblood.object.item;
 
 import json.jayson.playerblood.capability.data.PlayerBlood;
 import json.jayson.playerblood.zUtility;

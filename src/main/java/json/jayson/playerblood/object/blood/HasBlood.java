@@ -1,8 +1,9 @@
-package json.jayson.playerblood.objects;
+package json.jayson.playerblood.object.blood;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 
+@Deprecated
 public class HasBlood implements IHasBlood {
 
     public float amount;

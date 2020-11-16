@@ -1,7 +1,7 @@
 package json.jayson.playerblood.capability.cap;
 
+import json.jayson.playerblood.capability.zCapability;
 import json.jayson.playerblood.capability.interfaces.IPlayerBlood;
-import json.jayson.playerblood.registry.zCapability;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
