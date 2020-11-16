@@ -1,4 +1,4 @@
-package json.jayson.playerblood.registry;
+package json.jayson.playerblood.registry.object;
 
 import json.jayson.playerblood.bMod;
 import json.jayson.playerblood.object.fluid.blood.FluidBlood;

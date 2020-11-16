@@ -1,6 +1,6 @@
 package json.jayson.playerblood.object.fluid.blood;
 
-import json.jayson.playerblood.registry.zFluid;
+import json.jayson.playerblood.registry.object.zFluid;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.fluid.FlowingFluid;

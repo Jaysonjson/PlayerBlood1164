@@ -1,6 +1,8 @@
 package json.jayson.playerblood;
 
+import json.jayson.playerblood.capability.data.PlayerBlood;
 import json.jayson.playerblood.capability.interfaces.IPlayerBlood;
+import json.jayson.playerblood.object.blood.IHasBlood;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -41,6 +43,20 @@ public class zUtility {
         if((float)number > 1000000) string = String.format("%.2fM", (float)number / 1000000.0);
         if((float)number > 1000000000) string = String.format("%.2fG", (float)number / 1000000000.0);
         return string;
+    }
+    
+    public static void injectBlood(PlayerEntity player, IHasBlood hasBlood) {
+        PlayerBlood.get(player).ifPresent(playerBlood -> {
+            if(playerBlood.isOverflow(hasBlood.getAmount())) {
+                playerBlood.adjustBlood(hasBlood.getAmount(), true);
+                hasBlood.decreaseAmount(hasBlood.getAmount() - playerBlood.getOverflow(hasBlood.getAmount()));
+            } else {
+                playerBlood.adjustBlood(hasBlood.getAmount());
+                hasBlood.setAmount(0);
+            }
+            player.sendStatusMessage(new TranslationTextComponent("Adjusted Blood by " + hasBlood.getAmount()), true);
+            playerBlood.syncRemote(player);
+        });
     }
     
 }

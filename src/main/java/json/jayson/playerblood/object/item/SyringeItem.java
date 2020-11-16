@@ -1,8 +1,7 @@
 package json.jayson.playerblood.object.item;
 
-import json.jayson.playerblood.capability.data.PlayerBlood;
+import json.jayson.playerblood.object.zItemNBT;
 import json.jayson.playerblood.object.blood.HasBlood;
-import json.jayson.playerblood.object.blood.IHasBlood;
 import json.jayson.playerblood.object.fluid.blood.FluidBloodBlock;
 import json.jayson.playerblood.object.fluid.blood.FluidBloodBlockTileEntity;
 import json.jayson.playerblood.zUtility;
@@ -31,7 +30,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 //Geportet von 1.15. --> Sehr Alt
-@Deprecated
 public class SyringeItem extends Item {
 
     public SyringeItem(Properties p_i48487_1_) {
@@ -64,49 +62,42 @@ public class SyringeItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World p_77659_1_, PlayerEntity p_77659_2_, Hand p_77659_3_) {
-        RayTraceResult raytraceresult = rayTrace(p_77659_1_, p_77659_2_, RayTraceContext.FluidMode.SOURCE_ONLY);
-        ItemStack item = p_77659_2_.getHeldItemMainhand();
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+       
+    	RayTraceResult raytraceresult = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+       
+    	ItemStack item = player.getHeldItemMainhand();
         CompoundNBT nbt = item.getTag();
-        float amount = nbt.getFloat("Amount");
-        String entity = nbt.getString("Entity");
-        if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
-            BlockPos blockpos = new BlockPos(raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
-            RayTraceResult rayTrace = rayTrace(p_77659_1_, p_77659_2_, RayTraceContext.FluidMode.SOURCE_ONLY);
-            BlockPos blockposIn = getPlacementPosition(p_77659_1_.getBlockState(blockpos), blockpos, rayTrace);
-            if (p_77659_1_.getBlockState(blockposIn).getBlock() instanceof FluidBloodBlock && p_77659_1_.getBlockState(blockpos).getFluidState().isSource()) {
-                FluidBloodBlockTileEntity tileEntity = (FluidBloodBlockTileEntity) p_77659_1_.getTileEntity(blockposIn);
-                if (tileEntity.owner.equalsIgnoreCase(entity) || entity.equalsIgnoreCase("Unknown")) {
-                    amount = amount + zUtility.convertToMBU(tileEntity.amount);
+        
+        float amount = nbt.getFloat(zItemNBT.BLOOD_AMOUNT);
+        String entity = nbt.getString(zItemNBT.ENTITY);
+        
+        if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {          
+        	
+        	BlockPos blockpos = new BlockPos(raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
+            RayTraceResult rayTrace = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);            
+            BlockPos blockposIn = getPlacementPosition(world.getBlockState(blockpos), blockpos, rayTrace);            
+            BlockState clickedBlockState = world.getBlockState(blockposIn);
+            
+            if (clickedBlockState.getBlock() instanceof FluidBloodBlock && clickedBlockState.getFluidState().isSource()) {
+            	FluidBloodBlockTileEntity tileEntity = (FluidBloodBlockTileEntity) world.getTileEntity(blockposIn);
+                if (tileEntity.owner.equalsIgnoreCase(entity) || entity.equalsIgnoreCase("Unknown")) {  
+                	amount = amount + zUtility.convertToMBU(tileEntity.amount);
                     entity = tileEntity.owner;
-                    p_77659_1_.setBlockState(blockposIn, Blocks.AIR.getDefaultState());
-                    nbt.putString("Entity", entity);
-                    nbt.putFloat("Amount", amount);
+                    world.setBlockState(blockposIn, Blocks.AIR.getDefaultState());
+                    nbt.putString(zItemNBT.ENTITY, entity);
+                    nbt.putFloat(zItemNBT.BLOOD_AMOUNT, amount);  
                 } else {
-                    zUtility.sendMessage(p_77659_2_, new TranslationTextComponent("syringe_wrong_owner"), true);
-                }
+                    zUtility.sendMessage(player, new TranslationTextComponent("syringe_wrong_owner"), true);
+                }    
             }
         } else {
             if(amount > 0) {
-                injectBlood(p_77659_2_, new HasBlood(amount, entity, null));
+                zUtility.injectBlood(player, new HasBlood(amount, entity, null));
             }
         }
-        return super.onItemRightClick(p_77659_1_, p_77659_2_, p_77659_3_);
-    }
-
-
-    private void injectBlood(PlayerEntity player, IHasBlood hasBlood) {
-        PlayerBlood.get(player).ifPresent(playerBlood -> {
-            if(playerBlood.isOverflow(hasBlood.getAmount())) {
-                playerBlood.adjustBlood(hasBlood.getAmount(), true);
-                hasBlood.decreaseAmount(hasBlood.getAmount() - playerBlood.getOverflow(hasBlood.getAmount()));
-            } else {
-                playerBlood.adjustBlood(hasBlood.getAmount());
-                hasBlood.setAmount(0);
-            }
-            player.sendStatusMessage(new TranslationTextComponent("Adjusted Blood by " + hasBlood.getAmount()), true);
-            playerBlood.syncRemote(player);
-        });
+        
+        return super.onItemRightClick(world, player, hand);
     }
 
     private BlockPos getPlacementPosition(BlockState p_210768_1_, BlockPos p_210768_2_, RayTraceResult p_210768_3_) {
@@ -118,19 +109,19 @@ public class SyringeItem extends Item {
     }
 
     private void resetEntity(CompoundNBT nbt) {
-        nbt.putString("Entity", "Unknown");
-        nbt.putInt("Amount", 0);
+        nbt.putString(zItemNBT.ENTITY, "Unknown");
+        nbt.putInt(zItemNBT.BLOOD_AMOUNT, 0);
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World p_77624_2_, List<ITextComponent> tooltip, ITooltipFlag p_77624_4_) {
         String entity = "EMPTY";
         float bloodAmount = 0;
-        if (stack.hasTag() && stack.getTag().contains("Entity") && stack.getTag().contains("Amount")) {
+        if (stack.hasTag() && stack.getTag().contains(zItemNBT.ENTITY) && stack.getTag().contains(zItemNBT.BLOOD_AMOUNT)) {
             CompoundNBT nbt = stack.getTag();
-            if(entityExists(nbt.getString("Entity"))) {
-                entity = new TranslationTextComponent(ForgeRegistries.ENTITIES.getValue(new ResourceLocation(nbt.getString("Entity"))).getTranslationKey()).getUnformattedComponentText();
-                bloodAmount = nbt.getFloat("Amount");
+            if(entityExists(nbt.getString(zItemNBT.ENTITY))) {
+                entity = new TranslationTextComponent(ForgeRegistries.ENTITIES.getValue(new ResourceLocation(nbt.getString(zItemNBT.ENTITY))).getTranslationKey()).getString();
+                bloodAmount = nbt.getFloat(zItemNBT.BLOOD_AMOUNT);
             }
         }
         tooltip.add(new TranslationTextComponent("Owner: " + "\247c" + entity));

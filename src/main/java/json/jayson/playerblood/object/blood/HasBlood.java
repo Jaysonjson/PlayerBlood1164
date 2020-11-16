@@ -1,5 +1,6 @@
 package json.jayson.playerblood.object.blood;
 
+import json.jayson.playerblood.object.zItemNBT;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -58,13 +59,13 @@ public class HasBlood implements IHasBlood {
 
     @Override
     public void readNBT(CompoundNBT nbt, IHasBlood blood) {
-        nbt.putFloat("Amount", blood.getAmount());
-        nbt.putString("EntityString", blood.getEntityString());
+        nbt.putFloat(zItemNBT.BLOOD_AMOUNT, blood.getAmount());
+        nbt.putString(zItemNBT.ENTITY, blood.getEntityString());
     }
 
     @Override
     public void setNBT(CompoundNBT nbt, IHasBlood blood) {
-        blood.setAmount(nbt.getFloat("Amount"));
-        blood.setEntityString(nbt.getString("EntityString"));
+        blood.setAmount(nbt.getFloat(zItemNBT.BLOOD_AMOUNT));
+        blood.setEntityString(nbt.getString(zItemNBT.ENTITY));
     }
 }

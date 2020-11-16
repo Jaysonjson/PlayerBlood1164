@@ -1,6 +1,6 @@
 package json.jayson.playerblood.object.itemgroup;
 
-import json.jayson.playerblood.registry.zItem;
+import json.jayson.playerblood.registry.object.zItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 

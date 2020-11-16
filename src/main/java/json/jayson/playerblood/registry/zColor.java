@@ -1,5 +1,6 @@
 package json.jayson.playerblood.registry;
 
+import json.jayson.playerblood.registry.object.zItem;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

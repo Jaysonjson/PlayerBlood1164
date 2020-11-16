@@ -1,6 +1,7 @@
 package json.jayson.playerblood.object.item;
 
 import json.jayson.playerblood.capability.data.PlayerBlood;
+import json.jayson.playerblood.object.zItemNBT;
 import json.jayson.playerblood.zUtility;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -33,11 +34,11 @@ public class BloodOrbItem extends Item {
         } else {
             nbt = new CompoundNBT();
             nbt.putInt("Type", random.nextInt(2));
-            nbt.putFloat("Amount", random.nextInt(27) + random.nextFloat());
+            nbt.putFloat(zItemNBT.BLOOD_AMOUNT, random.nextInt(27) + random.nextFloat());
             stack.setTag(nbt);
         }
         stack.setTag(nbt);
-        if(stack.hasTag() && nbt.getFloat("Amount") < 0.0001) {
+        if(stack.hasTag() && nbt.getFloat(zItemNBT.BLOOD_AMOUNT) < 0.0001) {
             stack.shrink(1);
         }
         super.inventoryTick(stack, p_77663_2_, p_77663_3_, p_77663_4_, p_77663_5_);
@@ -49,7 +50,7 @@ public class BloodOrbItem extends Item {
             ItemStack stack = playerIn.getHeldItem(handIn);
             if(stack.hasTag()) {
                 CompoundNBT nbt = stack.getTag();
-                float amount = nbt.getFloat("Amount");
+                float amount = nbt.getFloat(zItemNBT.BLOOD_AMOUNT);
                 int type = nbt.getInt("Type");
                 if(type == 0) {
                     playerBlood.adjustMaxBlood(amount);
@@ -76,10 +77,10 @@ public class BloodOrbItem extends Item {
     public void addInformation(ItemStack stack, @Nullable World p_77624_2_, List<ITextComponent> tooltip, ITooltipFlag p_77624_4_) {
         int type = -1;
         float bloodAmount = 0;
-        if (stack.hasTag() && stack.getTag().contains("Type") && stack.getTag().contains("Amount")) {
+        if (stack.hasTag() && stack.getTag().contains("Type") && stack.getTag().contains(zItemNBT.BLOOD_AMOUNT)) {
             CompoundNBT nbt = stack.getTag();
             type = nbt.getInt("Type");
-            bloodAmount = nbt.getFloat("Amount");
+            bloodAmount = nbt.getFloat(zItemNBT.BLOOD_AMOUNT);
         }
         float finalBloodAmount = bloodAmount;
         if(type == 0) {

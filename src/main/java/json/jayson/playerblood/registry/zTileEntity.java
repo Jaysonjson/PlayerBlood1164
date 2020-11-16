@@ -2,6 +2,7 @@ package json.jayson.playerblood.registry;
 
 import json.jayson.playerblood.bMod;
 import json.jayson.playerblood.object.fluid.blood.FluidBloodBlockTileEntity;
+import json.jayson.playerblood.registry.object.zFluid;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

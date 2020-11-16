@@ -1,8 +1,9 @@
-package json.jayson.playerblood.registry;
+package json.jayson.playerblood.registry.object;
 
 import java.util.Objects;
 
 import json.jayson.playerblood.bMod;
+import json.jayson.playerblood.registry.zItemGroup;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
