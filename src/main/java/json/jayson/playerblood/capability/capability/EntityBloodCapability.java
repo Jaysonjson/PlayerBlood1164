@@ -1,4 +1,4 @@
-package json.jayson.playerblood.capability.cap;
+package json.jayson.playerblood.capability.capability;
 
 import json.jayson.playerblood.capability.zCapability;
 import json.jayson.playerblood.capability.interfaces.IEntityBlood;

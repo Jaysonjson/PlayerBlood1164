@@ -3,7 +3,6 @@ package json.jayson.playerblood.network.packet;
 import json.jayson.playerblood.capability.data.EntityBlood;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -34,7 +33,8 @@ public class EntityBloodPacket {
         return new EntityBloodPacket(packetBuffer.readUniqueId(), packetBuffer.readCompoundTag(), packetBuffer.readInt());
     }
 
-    public static void handle(EntityBloodPacket message, Supplier<NetworkEvent.Context> ctx) {
+    @SuppressWarnings("resource")
+	public static void handle(EntityBloodPacket message, Supplier<NetworkEvent.Context> ctx) {
 		Entity entity = Minecraft.getInstance().world.getEntityByID(message.entityID);
         if (entity != null)
             Minecraft.getInstance().deferTask(() -> EntityBlood.get(entity).ifPresent((data) -> data.deserializeNBT(message.data)));

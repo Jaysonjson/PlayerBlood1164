@@ -25,5 +25,4 @@ public class zFluid {
     public static final RegistryObject<Block> BLOOD_BLOCK = BLOCKS.register("blood", () -> new FluidBloodBlock(() -> (FlowingFluid) BLOOD.get(), Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
     public static final RegistryObject<Item> BLOOD_BUCKET = ITEMS.register("blood_bucket", () -> new BucketItem(BLOOD, new Item.Properties().maxStackSize(1)));
 
-
 }

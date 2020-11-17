@@ -2,6 +2,8 @@ package json.jayson.playerblood.capability.data;
 
 import json.jayson.playerblood.capability.zCapability;
 import json.jayson.playerblood.capability.interfaces.IEntityBlood;
+import json.jayson.playerblood.network.packet.EntityBloodPacket;
+import json.jayson.playerblood.network.zNetwork;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.LazyOptional;
@@ -10,7 +12,7 @@ import javax.annotation.Nonnull;
 
 public class EntityBlood implements IEntityBlood {
 
-    public float blood = 0.0f;
+    public float blood = 1.0f;
     public float maxBlood = 100.0f;
 
     @Nonnull
@@ -121,6 +123,14 @@ public class EntityBlood implements IEntityBlood {
             return (this.blood + blood) - this.maxBlood;
         }
         return 0;
+    }
+
+    @Override
+    public void syncRemote(Entity entity) {
+        if(!entity.getEntityWorld().isRemote()) {
+            IEntityBlood data = get(entity).orElse(null);
+            zNetwork.sendPacketToAll(new EntityBloodPacket(entity.getUniqueID(), data.serializeNBT(), entity.getEntityId()));
+        }
     }
 
 }

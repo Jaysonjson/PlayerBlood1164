@@ -21,9 +21,11 @@ import net.minecraftforge.fml.loading.FMLPaths;
 @Mod("playerblood")
 //@Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
 public class bMod {
-    public static final String MOD_ID = "playerblood";
+    
+	public static final String MOD_ID = "playerblood";
     public static final String BLOOD_MODIFIER_DIR = FMLPaths.MODSDIR.get().toString() + "/1.16.3/playerblood/";
     public static final String BLOOD_MODIFIER_JSON = BLOOD_MODIFIER_DIR + "bloodmodify.json";
+    
     public bMod() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         zBloodModifier.init();

@@ -1,6 +1,6 @@
 package json.jayson.playerblood.capability.interfaces;
 
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;
 
@@ -27,4 +27,7 @@ public interface IEntityBlood extends INBTSerializable<CompoundNBT> {
 
     boolean isOverflow(float blood);
     float getOverflow(float blood);
+
+    void syncRemote(Entity player);
+
 }

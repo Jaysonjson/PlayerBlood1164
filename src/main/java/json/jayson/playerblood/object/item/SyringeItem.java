@@ -69,35 +69,36 @@ public class SyringeItem extends Item {
        
     	ItemStack item = player.getHeldItemMainhand();
         CompoundNBT nbt = item.getTag();
-        
-        float amount = nbt.getFloat(zItemNBT.BLOOD_AMOUNT);
-        String entity = nbt.getString(zItemNBT.ENTITY);
-        if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
-        	
-        	BlockPos blockpos = new BlockPos(raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
-            RayTraceResult rayTrace = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);            
-            BlockPos blockposIn = getPlacementPosition(world.getBlockState(blockpos), blockpos, rayTrace);            
-            BlockState clickedBlockState = world.getBlockState(blockposIn);
-            
-            if (clickedBlockState.getBlock() instanceof FluidBloodBlock && clickedBlockState.getFluidState().isSource()) {
-            	FluidBloodBlockTileEntity tileEntity = (FluidBloodBlockTileEntity) world.getTileEntity(blockposIn);
-                if (tileEntity.owner.equalsIgnoreCase(entity) || entity.equalsIgnoreCase("Unknown")) {  
-                	amount = amount + zUtility.convertToMBU(tileEntity.amount);
-                    entity = tileEntity.owner;
-                    world.setBlockState(blockposIn, Blocks.AIR.getDefaultState());
-                    nbt.putString(zItemNBT.ENTITY, entity);
-                    nbt.putFloat(zItemNBT.BLOOD_AMOUNT, amount);
-                    item.setTag(nbt);
-                } else {
-                    zUtility.sendMessage(player, new TranslationTextComponent("syringe_wrong_owner"), true);
-                }    
-            }
-        } else {
-            if(amount > 0) {
-                zUtility.injectBlood(player, new HasBlood(amount, entity, null));
+
+        if(nbt != null) {
+            float amount = nbt.getFloat(zItemNBT.BLOOD_AMOUNT);
+            String entity = nbt.getString(zItemNBT.ENTITY);
+            if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
+
+                BlockPos blockpos = new BlockPos(raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
+                RayTraceResult rayTrace = rayTrace(world, player, RayTraceContext.FluidMode.SOURCE_ONLY);
+                BlockPos blockposIn = getPlacementPosition(world.getBlockState(blockpos), blockpos, rayTrace);
+                BlockState clickedBlockState = world.getBlockState(blockposIn);
+
+                if (clickedBlockState.getBlock() instanceof FluidBloodBlock && clickedBlockState.getFluidState().isSource()) {
+                    FluidBloodBlockTileEntity tileEntity = (FluidBloodBlockTileEntity) world.getTileEntity(blockposIn);
+                    if (tileEntity.owner.equalsIgnoreCase(entity) || entity.equalsIgnoreCase("Unknown")) {
+                        amount = amount + zUtility.convertToMBU(tileEntity.amount);
+                        entity = tileEntity.owner;
+                        world.setBlockState(blockposIn, Blocks.AIR.getDefaultState());
+                        nbt.putString(zItemNBT.ENTITY, entity);
+                        nbt.putFloat(zItemNBT.BLOOD_AMOUNT, amount);
+                        item.setTag(nbt);
+                    } else {
+                        zUtility.sendMessage(player, new TranslationTextComponent("syringe_wrong_owner"), true);
+                    }
+                }
+            } else {
+                if (amount > 0) {
+                    zUtility.injectBlood(player, new HasBlood(amount, entity, null));
+                }
             }
         }
-        
         return super.onItemRightClick(world, player, hand);
     }
 

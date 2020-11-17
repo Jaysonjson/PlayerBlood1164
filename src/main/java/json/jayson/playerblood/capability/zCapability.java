@@ -1,8 +1,8 @@
 package json.jayson.playerblood.capability;
 
 import json.jayson.playerblood.bMod;
-import json.jayson.playerblood.capability.cap.EntityBloodCapability;
-import json.jayson.playerblood.capability.cap.PlayerBloodCapability;
+import json.jayson.playerblood.capability.capability.EntityBloodCapability;
+import json.jayson.playerblood.capability.capability.PlayerBloodCapability;
 import json.jayson.playerblood.capability.data.EntityBlood;
 import json.jayson.playerblood.capability.data.PlayerBlood;
 import json.jayson.playerblood.capability.interfaces.IEntityBlood;
@@ -36,14 +36,20 @@ public class zCapability {
 
     @SubscribeEvent
     public static void AttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof PlayerEntity) {
+        Entity entity = event.getObject();
+        if (entity instanceof PlayerEntity) {
             event.addCapability(new ResourceLocation(bMod.MOD_ID, "playerblood"), new PlayerBloodCapability());
         }
 
-        if(event.getObject() instanceof LivingEntity) {
-            if(zBloodModifier.blood_modifiers.containsKey(event.getObject().getType())) {
+        if(entity instanceof LivingEntity) {
+            if(zBloodModifier.blood_modifiers.containsKey(entity.getType())) {
                 //System.out.println("Found Entity " + event.getObject().getType().getRegistryName().toString() + "; attaching Capability");
                 event.addCapability(new ResourceLocation(bMod.MOD_ID, "entityblood"), new EntityBloodCapability());
+                EntityBlood.get(entity).ifPresent((entityBlood -> {
+                    entityBlood.setBlood(zBloodModifier.blood_modifiers.get(entity.getType()));
+                    entityBlood.setMaxBlood(zBloodModifier.blood_modifiers_max.get(entity.getType()));
+                    entityBlood.syncRemote(entity);
+                }));
             }
         }
     }

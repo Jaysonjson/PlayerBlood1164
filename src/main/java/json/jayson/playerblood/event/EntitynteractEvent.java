@@ -1,6 +1,7 @@
 package json.jayson.playerblood.event;
 
 import json.jayson.playerblood.capability.data.EntityBlood;
+import json.jayson.playerblood.object.item.BloodScannerItem;
 import json.jayson.playerblood.object.item.SyringeItem;
 import json.jayson.playerblood.object.zItemNBT;
 import net.minecraft.entity.Entity;
@@ -23,7 +24,7 @@ public class EntitynteractEvent {
 			if(itemStack.getItem() instanceof SyringeItem) {
 				if(nbt.getString(zItemNBT.ENTITY).equalsIgnoreCase(ForgeRegistries.ENTITIES.getKey(target.getType()).toString())) {
 					EntityBlood.get(target).ifPresent((entityBlood -> {
-						if(entityBlood.getBlood() < 1) {
+						if(entityBlood.getBlood() <= 0) {
 							target.remove();
 						} else {
 							if(entityBlood.getBlood() > 9) {
@@ -36,6 +37,13 @@ public class EntitynteractEvent {
 				} else {
 					player.sendStatusMessage(new TranslationTextComponent("Wrong Owner!"), true);
 				}
+			}
+
+			if(itemStack.getItem() instanceof BloodScannerItem) {
+				System.out.println(itemStack.getItem() instanceof BloodScannerItem);
+				EntityBlood.get(target).ifPresent((entityBlood -> {
+					player.sendStatusMessage(new TranslationTextComponent("Blood: " + entityBlood.getBlood() + "\nMax Blood: " + entityBlood.getMaxBlood()), true);
+				}));
 			}
 		}
 	}
